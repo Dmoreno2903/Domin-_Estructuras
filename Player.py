@@ -5,12 +5,14 @@
 #---------------------------------------
 
 class Player:
-    
+    players = []
+
     def __init__(self, fichas, nombre):
         self._fichas = fichas #Array con fichas
         self._nombre = nombre #Los virtuales tienen nombres predefinidos
         self._turno = False
         self._numero_fichas = 0
+        self.players.append(self)
 
     def getFichas(self):
         return self._fichas
@@ -32,5 +34,9 @@ class Player:
 
     def getNumero_Fichas(self):
         return len(self._fichas)
+    
+    @classmethod
+    def getPlayers(cls):
+        return cls.getPlayers
     
 
