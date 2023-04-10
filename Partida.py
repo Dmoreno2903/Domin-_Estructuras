@@ -15,6 +15,7 @@ class Partida:
         self._players = Player.getPlayers() #Array de jugadores
         self._fichas = Ficha.getFichas() #Array de fichas
         self._tablero = []
+        self._ganador = None
 
     def repartirFichas(self):
         for player in self._players:
@@ -22,7 +23,13 @@ class Partida:
             self._fichas = list(filter(lambda x: x not in fichas_selec, self._fichas))
             player.setFichas(fichas_selec)
 
-    
+    def comprobarGanador(self, player):
+        player.contarFichas() #Cuenta el número de fichas en el array
+        if player.getNumeroFichas() == 0:
+            self._ganador = player
+
+        
+
 
 
 
