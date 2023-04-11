@@ -29,6 +29,7 @@ def verificarSeis(arr,partida):
                 partida.fichaDerecha(fichas.pop(j))
                 return i
             j+=1
+            
 def validarJugada(fichas,indice,lado,partida):
     ficha = fichas[indice]
     A, B = partida.getPosibles()
@@ -47,8 +48,7 @@ def jugada(player,turno,partida):
     else:
         tablero = partida.getTablero()
         print("---------TABLERO----------")
-        for ficha in tablero:
-            print(f"{ficha.getA()}:{ficha.getB()}")
+        partida.mostrarTablero(tablero)
         print("\n----------------------------------\n")
         fichas = player.getFichas()
         cont = 1

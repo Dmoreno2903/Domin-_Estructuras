@@ -46,8 +46,24 @@ class Partida:
     
     def agregarFicha(self, ficha):
         self._tablero.append(ficha)
+        
     def getGanador(self):
         return self._ganador
+    
+    def mostrarTablero(self, fichas):
+        arr_salida = []
+        for ind in range(len(fichas) - 1):
+            fichaA, fichaB = fichas[ind], fichas[ind + 1]
+            if fichaA.getA() == fichaB.getA() or fichaA.getA() == fichaB.getB():
+                arr_salida.append("[" + str(fichaA.getB()) + "|" + str(fichaA.getA()) + "]")
+            else:
+                arr_salida.append("[" + str(fichaA.getA()) + "|" + str(fichaA.getB()) + "]")
+        arr_salida.append("[" + str(fichas[-1].getA()) + "|" + str(fichas[-1].getB()) + "]")
+        print("".join(arr_salida))
+        
+
+
+        
 
 
 
