@@ -2,6 +2,7 @@
 from random import sample
 from .Ficha import Ficha
 from .Player import Player
+from collections import deque
 
 #---------------------------------------
 # Clase Partida
@@ -14,7 +15,7 @@ class Partida:
     def __init__(self):
         self._players = Player.getPlayers() #Array de jugadores
         self._fichas = Ficha.getFichas() #Array de fichas
-        self._tablero = []
+        self._tablero = deque([])
         self._ganador = None
 
     def repartirFichas(self):
@@ -28,8 +29,14 @@ class Partida:
         if player.getNumeroFichas() == 0:
             self._ganador = player
 
-        
+    def fichaDerecha(self, ficha):
+        self._tablero.append(ficha)
 
+    def fichaIzquierda(self, ficha):
+        self._tablero.appendleft(ficha)
+
+    def getPosibles(self):
+        return self._tablero[0].getDisponible(), self._tablero[-1].getDisponible()
 
 
 

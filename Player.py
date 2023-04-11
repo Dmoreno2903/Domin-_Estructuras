@@ -1,4 +1,6 @@
 
+from .Partida import Partida
+
 #---------------------------------------
 # Clase Jugador
 # Contine sus fichas de juego y un nombre
@@ -10,7 +12,6 @@ class Player:
         self._fichas = [] #Array con fichas
         self._nombre = nombre if nombre else "" #Los virtuales tienen nombres predefinidos
         self._turno = False #Cambia a True si es su turno
-        self._numero_fichas = 0 #Se debe mostrar en pantalla
 
     def getFichas(self):
         return self._fichas
@@ -31,10 +32,11 @@ class Player:
         self._turno = turno
 
     def contarFichas(self):
-        self._numero_fichas = len(self._fichas)
-
-    def getNumeroFichas(self):
-        return self._numero_fichas
+        return len(self._fichas)
+    
+    def inteligenciaBot(self, partida:Partida):
+        A, B = partida.getPosibles()
+        
     
     @classmethod
     def getPlayers(cls):
