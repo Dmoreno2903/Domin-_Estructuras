@@ -54,8 +54,7 @@ class Player:
                 ficha:Ficha = posB[-1]
                 ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
                 partida.fichaDerecha(ficha); self._fichas.remove(ficha)
-        else:
-            
+
     
     @classmethod
     def getPlayers(cls):
