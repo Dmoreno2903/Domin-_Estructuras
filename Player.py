@@ -1,5 +1,6 @@
 
 from .Partida import Partida
+from .Ficha import Ficha
 
 #---------------------------------------
 # Clase Jugador
@@ -7,11 +8,14 @@ from .Partida import Partida
 #---------------------------------------
 
 class Player:
+    all_players = []
 
-    def __init__(self,nombre = None):
+    def __init__(self,nombre = None, bot = True):
         self._fichas = [] #Array con fichas
         self._nombre = nombre if nombre else "" #Los virtuales tienen nombres predefinidos
         self._turno = False #Cambia a True si es su turno
+        self.all_players.append(self) #Se agrega cada jugador creado
+        self._bot = bot
 
     def getFichas(self):
         return self._fichas
@@ -34,12 +38,25 @@ class Player:
     def contarFichas(self):
         return len(self._fichas)
     
+    def getBot(self):
+        return self._bot
+    
     def inteligenciaBot(self, partida:Partida):
         A, B = partida.getPosibles()
-        
+        posA = list(filter(lambda x: x.getA() == A or x.getB() == A, self._fichas))
+        posB = list(filter(lambda x: x.getA() == B or x.getB() == B, self._fichas))
+        if len(posA) != 0 or len(posB) != 0:
+            if len(posA) >= len(posB): 
+                ficha:Ficha = posA[-1]
+                ficha.setDisponible(ficha.getB()) if ficha.getA() == A else ficha.setDisponible(ficha.getA())
+                partida.fichaIzquierda(ficha), self._fichas.remove(ficha)
+            else:
+                ficha:Ficha = posB[-1]
+                ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
+                partida.fichaDerecha(ficha); self._fichas.remove(ficha)
     
     @classmethod
     def getPlayers(cls):
-        return cls.getPlayers
+        return cls.all_players
     
 
