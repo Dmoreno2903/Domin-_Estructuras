@@ -2,9 +2,6 @@ from Ficha import *
 from Player import *
 from random import sample, randrange
 
-
-
-
 def llenarFichas():
     """llena una a una las 28 fichas"""
     fichas:Ficha = []
@@ -12,6 +9,7 @@ def llenarFichas():
         for j in range(i,7):
             fichas.append(Ficha(i,j))
     return fichas
+
 def repartirFichas(fichas,arr=[]):
     """reparte 7 fichas para cada jugador que viene en el array arr"""
     players = []
@@ -29,6 +27,7 @@ def verificarSeis(arr):
             if ficha.getA()+ficha.getB() == 12:
                 return i,arr[i].getFichas().pop(j)
             j+=1
+
 def jugada(player,turno,fichasJugadas):
     cont =1
     fichas = player.getFichas()
@@ -38,6 +37,8 @@ def jugada(player,turno,fichasJugadas):
     
     numFicha = int(input("elija una ficha a jugar: ")) if turno==3 else randrange(len(fichas))
     fichasJugadas.append(fichas.pop(numFicha-1))
+
+
 """main: se lleva a cabo la partida"""
 if __name__ == "__main__":
     fichasJugadas =[]

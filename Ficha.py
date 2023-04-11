@@ -8,6 +8,7 @@ class Ficha:
     all_fichas = []
 
     def __init__(self, cara_A, cara_B):
+        self_disponible = None
         self._cara_A = cara_A # Primer lado 
         self._cara_B = cara_B # Segundo lado
         self.all_fichas.append(self) #Se almacena cada instancia en el array
@@ -17,6 +18,12 @@ class Ficha:
     
     def getB(self):
         return self._cara_B
+    
+    def setDisponible(self, disponible):
+        self._disponible = disponible
+    
+    def getDisponible(self):
+        return self._disponible
         
     @classmethod
     def getFichas(cls):
