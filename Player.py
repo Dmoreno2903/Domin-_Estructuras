@@ -36,6 +36,7 @@ class Player:
         self._turno = turno
 
     def contarFichas(self):
+        a = len(self._fichas)
         return len(self._fichas)
     
     def getBot(self):
@@ -54,8 +55,11 @@ class Player:
                 ficha:Ficha = posB[-1]
                 ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
                 partida.fichaDerecha(ficha); self._fichas.remove(ficha)
+        else:
+            print("pasa turno")
 
-    
+
+
     @classmethod
     def getPlayers(cls):
         return cls.all_players

@@ -27,6 +27,7 @@ class Partida:
     def comprobarGanador(self, player):
         if player.contarFichas() == 0:
             self._ganador = player
+ 
 
     def fichaDerecha(self, ficha):
         self._tablero.append(ficha)
@@ -45,7 +46,8 @@ class Partida:
     
     def agregarFicha(self, ficha):
         self._tablero.append(ficha)
-
+    def getGanador(self):
+        return self._ganador
 
 
 
