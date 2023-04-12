@@ -41,30 +41,55 @@ def validarJugada(fichas,indice,lado,partida):
         ficha.setDisponible(caraA if caraB==B else caraB)
         partida.fichaDerecha(fichas.pop(indice))
     else:
-        print("jugada invalida")
+        print("Jugada inválida. NO puedes colocar esa ficha")
+        print("¡Pierdes turno!")
+        print("-"*100)
+        input("-- Presiona enter --")
+        print("-"*100)
 
 def jugada(player,turno,partida):
-    if player.getBot():player.inteligenciaBot(partida)
+    if player.getBot():
+        print(f"\n-- Turno de {player.getNombre()} --")
+        player.inteligenciaBot(partida)
+        tablero = partida.getTablero()
+        partida.mostrarTablero(tablero)
+        print(f'-- Fichas restantes: {player.contarFichas()} --\n')
+        print("-"*100)
+        input("-- Presiona enter --")
+        print("-"*100)
     else:
         tablero = partida.getTablero()
-        print("---------TABLERO----------")
+        print("-"*100)
+        print(f"\n-- Tu turno {player.getNombre()} --")
         partida.mostrarTablero(tablero)
-        print("\n----------------------------------\n")
         fichas = player.getFichas()
         cont = 1
+        print("-- Tus fichas --\n")
+        print(f"0. Pasar")
         for ficha in fichas:
-            print(f"ficha #{cont}: {ficha.getA()}:{ficha.getB()}")
+            print(f"{cont}. [{ficha.getA()}|{ficha.getB()}]")
             cont+=1
-        indice= int(input("selecione una ficha a jugar: "))-1
-
+        print("\n", "-"*100, sep="")
+        indice= int(input("\n-> Selecione una ficha a jugar: "))-1
+        print("\n", "-"*100, sep="")
         if indice<len(fichas) and indice>=0:
-            print("seleccione D para poner la ficha en el lado derecho del tablero")
-            print("seleccione I para poner la ficha en el lado izquierdo del tablero")
-            lado= input("lado: ")
-
+            print("-- Seleccione D para poner la ficha en el lado derecho del tablero --")
+            print("-- seleccione I para poner la ficha en el lado izquierdo del tablero --")
+            print("-"*100, "\n", sep="")
+            lado= input("-> Seleccione lado: ")
+            print("\n", "-"*100, sep="")
             validarJugada(fichas,indice,lado,partida)
         else:
-            print("ficha invalida, pierde turno")
+            if indice == -1:
+                print("¡Pasaste de turno!")
+                print("-"*100)
+                input("-- Presiona enter --")
+                print("-"*100)
+            else:
+                print("Jugada inválida. ¡Pierdes turno!")
+                print("-"*100)
+                input("-- Presiona enter --")
+                print("-"*100)
 
 
 """main: se lleva a cabo la partida"""
@@ -73,7 +98,7 @@ if __name__ == "__main__":
     Player()
     Player()
     Player()
-    Player(input("ingrese su nombre: "),False)
+    Player(input("Ingrese su nombre: "),False)
     players = Player.getPlayers()
     fichas = Ficha.getFichas()
     partida = Partida(players,fichas)
@@ -87,9 +112,9 @@ if __name__ == "__main__":
         ganador = partida.getGanador()
         if(ganador):
             ganador = ganador.getNombre() if ganador.getNombre() else f"virtual {turno+1}"
-            print(f"gana el jugador: {ganador}")
+            print(f"-- Gana el jugador: {ganador} --")
             break
-    print("-------------------juego terminado-------------")
+    print("n-- JUEGO TERMINADO --")
 
         
 

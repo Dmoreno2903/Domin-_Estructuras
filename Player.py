@@ -12,7 +12,7 @@ class Player:
 
     def __init__(self,nombre = None, bot = True):
         self._fichas = [] #Array con fichas
-        self._nombre = nombre if nombre else "" #Los virtuales tienen nombres predefinidos
+        self._nombre = nombre if nombre else "Bot" #Los virtuales tienen nombres predefinidos
         self._turno = False #Cambia a True si es su turno
         self.all_players.append(self) #Se agrega cada jugador creado
         self._bot = bot
@@ -56,9 +56,7 @@ class Player:
                 ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
                 partida.fichaDerecha(ficha); self._fichas.remove(ficha)
         else:
-            print("pasa turno")
-
-
+            print("-- Pasa de turno --")
 
     @classmethod
     def getPlayers(cls):
