@@ -1,7 +1,7 @@
 from Ficha import *
 from Player import *
 from Partida import *
-from random import sample, randrange
+from random import sample
 
 def llenarFichas():
     """llena una a una las 28 fichas"""
