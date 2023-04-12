@@ -95,9 +95,9 @@ def jugada(player,turno,partida):
 """main: se lleva a cabo la partida"""
 if __name__ == "__main__":
     llenarFichas()
-    Player()
-    Player()
-    Player()
+    Player("Bot 1", True)
+    Player("Bot 2", True)
+    Player("Bot 3", True)
     Player(input("Ingrese su nombre: "),False)
     players = Player.getPlayers()
     fichas = Ficha.getFichas()
@@ -112,9 +112,9 @@ if __name__ == "__main__":
         ganador = partida.getGanador()
         if(ganador):
             ganador = ganador.getNombre() if ganador.getNombre() else f"virtual {turno+1}"
-            print(f"-- Gana el jugador: {ganador} --")
+            print(f"\n-- Gana el jugador: {ganador} --")
             break
-    print("n-- JUEGO TERMINADO --")
+    print("\n-- JUEGO TERMINADO --")
 
         
 
