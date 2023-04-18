@@ -76,6 +76,7 @@ class Player:
                 fichasDer = fichasDe[0]
                 partida.fichaIzquierda(fichaIz), self._fichas.remove(fichaIz)
                 partida.fichaDerecha(fichasDer), self._fichas.remove(fichasDer)
+                print("-- Tapicú --")
             else:
                 print("-- Pasa de turno --")
 
