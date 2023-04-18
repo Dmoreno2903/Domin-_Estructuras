@@ -78,7 +78,20 @@ class Player:
                 partida.fichaDerecha(fichasDer), self._fichas.remove(fichasDer)
                 print("-- Tapicú --")
             else:
-                print("-- Pasa de turno --")
+                A, B = partida.getPosibles()
+                posA = list(filter(lambda x: x.getA() == A or x.getB() == A, self._fichas))
+                posB = list(filter(lambda x: x.getA() == B or x.getB() == B, self._fichas))
+                if len(posA) != 0 or len(posB) != 0:
+                    if len(posA) >= len(posB): 
+                        ficha:Ficha = posA[-1]
+                        ficha.setDisponible(ficha.getB()) if ficha.getA() == A else ficha.setDisponible(ficha.getA())
+                        partida.fichaIzquierda(ficha), self._fichas.remove(ficha)
+                    else:
+                        ficha:Ficha = posB[-1]
+                        ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
+                        partida.fichaDerecha(ficha); self._fichas.remove(ficha)
+                else:
+                    print("-- Pasa de turno --")
 
     @classmethod
     def getPlayers(cls):

@@ -126,8 +126,6 @@ def jugada(player,turno,partida):
                 print("\n", "-"*100, sep="")
 
                 tapicu(fichas, partida,indice_1, indice_2)
-                
-    
         else:
             if indice == -1:
                 print("¡Pasaste de turno!")
