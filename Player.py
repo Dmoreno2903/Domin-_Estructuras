@@ -57,7 +57,7 @@ class Player:
             posB = list(filter(lambda x: x.getA() == B or x.getB() == B, self._fichas))
             if len(posA) != 0 or len(posB) != 0:
                 if len(posA) >= len(posB): 
-                    ficha = posA[-1]
+                    ficha:Ficha = posA[-1]
                     ficha.setDisponible(ficha.getB()) if ficha.getA() == A else ficha.setDisponible(ficha.getA())
                     partida.fichaIzquierda(ficha), self._fichas.remove(ficha)
                 else:
