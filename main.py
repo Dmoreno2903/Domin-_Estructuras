@@ -58,7 +58,7 @@ def tapicu(fichas, partida,indice_1, indice_2):
 def validarJugada(fichas,indice,lado,partida):
     ficha = fichas[indice]
     A, B = partida.getPosibles()
-    caraA,caraB = ficha.getA(),ficha.getB()
+    caraA, caraB = ficha.getA(), ficha.getB()
     if (caraA == A or caraB == A) and lado.lower() == "i":
         ficha.setDisponible(caraA if caraB==A else caraB)
         partida.fichaIzquierda(fichas.pop(indice))

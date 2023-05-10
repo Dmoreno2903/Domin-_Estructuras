@@ -59,7 +59,7 @@ class Player:
                 if len(posA) >= len(posB): 
                     ficha:Ficha = posA[-1]
                     ficha.setDisponible(ficha.getB()) if ficha.getA() == A else ficha.setDisponible(ficha.getA())
-                    partida.fichaIzquierda(ficha), self._fichas.remove(ficha)
+                    partida.fichaIzquierda(ficha); self._fichas.remove(ficha)
                 else:
                     ficha:Ficha = posB[-1]
                     ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
@@ -85,7 +85,7 @@ class Player:
                     if len(posA) >= len(posB): 
                         ficha:Ficha = posA[-1]
                         ficha.setDisponible(ficha.getB()) if ficha.getA() == A else ficha.setDisponible(ficha.getA())
-                        partida.fichaIzquierda(ficha), self._fichas.remove(ficha)
+                        partida.fichaIzquierda(ficha); self._fichas.remove(ficha)
                     else:
                         ficha:Ficha = posB[-1]
                         ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
