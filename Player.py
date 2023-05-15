@@ -45,53 +45,45 @@ class Player:
     def tapicu(self, partida):
         fichas_dobles = list(filter(lambda x: x.getA() == x.getB(), self._fichas))
         A, B = partida.getPosibles()
-        fichas_posibles = list(filter(lambda x: x.getA() == A or x.getA() == B, fichas_dobles))
-        if len(fichas_posibles) >= 2: return True
-        else: return False
+        fichasIz = list(filter(lambda x: x.getA()  == A, fichas_dobles))
+        fichasDe = list(filter(lambda x: x.getA() == B, fichas_dobles))
+        if len(fichasIz) >=1 and len(fichasDe) >= 1:
+            return [True, fichasIz, fichasDe]
+        else: 
+            return [False, fichasIz, fichasDe]
     
-    def inteligenciaBot(self, partida):
-        bool_tapicu = self.tapicu(partida)
-        if bool_tapicu == False:
-            A, B = partida.getPosibles()
-            posA = list(filter(lambda x: x.getA() == A or x.getB() == A, self._fichas))
-            posB = list(filter(lambda x: x.getA() == B or x.getB() == B, self._fichas))
-            if len(posA) != 0 or len(posB) != 0:
-                if len(posA) >= len(posB): 
-                    ficha:Ficha = posA[-1]
+    def inteligenciaBot(self, partida): #Movimientos realizados por los bots
+        tapicu = self.tapicu(partida) # [Bool, fichasIz, fichasDe]
+        A, B = partida.getPosibles()
+
+        if tapicu[0] == True: #Se puede
+            fichaIz:Ficha = tapicu[1][0]; fichaDe:Ficha = tapicu[2][0]
+            #Se agregan las dos fichas al tablero
+            fichaIz.setDisponible(fichaIz.getA()); fichaDe.setDisponible(fichaDe.getA())
+            partida.fichaIzquierda(fichaIz); partida.fichaDerecha(fichaDe) 
+            #Se eliminan las dos fichas de las fichas del bot
+            self._fichas.remove(fichaIz); self._fichas.remove(fichaDe)
+            print("-- Tapicú --")
+
+        else:
+            #Fichas posibles a colocar por la izquierda
+            posiblesIz = list(filter(lambda x: x.getA() == A or x.getB() == A, self._fichas)) 
+            #Fichas posibles a colocar por la derecha
+            posiblesDe = list(filter(lambda x: x.getA() == B or x.getB() == B, self._fichas))
+
+            #Nos aseguramos que exista al menos una ficha
+            if len(posiblesIz) != 0 or len(posiblesDe) != 0:
+                if  len(posiblesIz) >= len(posiblesDe):
+                    #Agregamos la ficha al lado izquierdo
+                    ficha: Ficha = posiblesIz[0]
                     ficha.setDisponible(ficha.getB()) if ficha.getA() == A else ficha.setDisponible(ficha.getA())
                     partida.fichaIzquierda(ficha); self._fichas.remove(ficha)
-                else:
-                    ficha:Ficha = posB[-1]
+                else: 
+                    #Agregamos la ficha al lado derecho
+                    ficha: Ficha = posiblesDe[0]
                     ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
                     partida.fichaDerecha(ficha); self._fichas.remove(ficha)
-            else:
-                print("-- Pasa de turno --")
-        else:
-            A, B = partida.getPosibles()
-            fichas_dobles = list(filter(lambda x: x.getA() == x.getB(), self._fichas))
-            fichasIz = list(filter(lambda x: x.getA()  == A, fichas_dobles))
-            fichasDe = list(filter(lambda x: x.getA() == B, fichas_dobles))
-            if len(fichasIz) == 1 and len(fichasDe) == 1:
-                fichaIz = fichasIz[0]
-                fichasDer = fichasDe[0]
-                partida.fichaIzquierda(fichaIz), self._fichas.remove(fichaIz)
-                partida.fichaDerecha(fichasDer), self._fichas.remove(fichasDer)
-                print("-- Tapicú --")
-            else:
-                A, B = partida.getPosibles()
-                posA = list(filter(lambda x: x.getA() == A or x.getB() == A, self._fichas))
-                posB = list(filter(lambda x: x.getA() == B or x.getB() == B, self._fichas))
-                if len(posA) != 0 or len(posB) != 0:
-                    if len(posA) >= len(posB): 
-                        ficha:Ficha = posA[-1]
-                        ficha.setDisponible(ficha.getB()) if ficha.getA() == A else ficha.setDisponible(ficha.getA())
-                        partida.fichaIzquierda(ficha); self._fichas.remove(ficha)
-                    else:
-                        ficha:Ficha = posB[-1]
-                        ficha.setDisponible(ficha.getA()) if ficha.getB() == B else ficha.setDisponible(ficha.getB())
-                        partida.fichaDerecha(ficha); self._fichas.remove(ficha)
-                else:
-                    print("-- Pasa de turno --")
+            else: print("-- Pasa de turno --")
 
     @classmethod
     def getPlayers(cls):
